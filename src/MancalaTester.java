@@ -15,16 +15,12 @@ public class MancalaTester
 
 		int player = 1;
 
-		int total = 0;
-
-
-
 		while(input.hasNext())
 		{
 
             int pit = input.nextInt();
-			player = game.move(pit);
 			String message = "Player " + player + " moved pit #" + pit + "\t";
+			player = game.move(pit);
 			message += game;
 			System.out.println(message);
 		}

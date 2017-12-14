@@ -37,7 +37,7 @@ public class Mancala
 	 */
 	public int getSeeds(int player)
 	{
-		int count = 0;
+		int count = 0; // number of seeds
 
 		if(player == 1)
 		{
@@ -49,7 +49,7 @@ public class Mancala
 
 		else if(player == 2)
 		{
-			for (int i = board.length / 2; i < board.length; i++)
+			for (int i = (board.length / 2) + 1; i < board.length; i++)
 			{
 				count += board[i];
 			}
@@ -87,6 +87,7 @@ public class Mancala
 
 		int count = pitSeeds; //number of seeds being moved
 
+		// sowing
 		if(player == 1)
 		{
 			for (int i = pit + 1; i < board.length; i++)
@@ -159,11 +160,11 @@ public class Mancala
 		board[pit] -= pitSeeds; // removes seeds from index player picked up from
 
 		//System.out.println(landed);
-		//boardlength - pit
 
-		int total = 0;
+		// capture conditions
+		int total = 0; // number of seeds added to active player's mancala in a capture
 
-		if(whosePit(landed) == player && board[landed] == 1 && board[(board.length) - landed] > 0 && landed != 0 && landed != board.length / 2)
+		if(whosePit(landed) == player && board[landed] == 1 && board[(board.length) - landed] > 0 && landed != 0 && landed != board.length / 2) // if the landed spot has no seeds and the opposite has seeds
 		{
 
 			if(player == 2)
@@ -193,17 +194,26 @@ public class Mancala
 			}
 		}
 
-		if(pit > board.length / 2 && pit < board.length)
+		if(landed == 0) // if it lands onto player 2's mancala
 		{
 			return 2;
 		}
 
-		else if(pit > 0 && pit < board.length / 2)
+		if(landed == board.length / 2) // if it lands onto player 1's mancala
 		{
 			return 1;
 		}
 
-		return 0;
+		// next two if statements if the seed doesnt land in a mancala, defaulted to the other player
+		if(player == 1)
+		{
+			return 2;
+		}
+
+		else
+		{
+			return 1;
+		}
 	}
 
 	/**
@@ -261,9 +271,10 @@ public class Mancala
 	 */
 	public boolean gameOver()
 	{
-		boolean empty1 = true;
-		boolean empty2 = true;
-		for (int i = 1; i < board.length / 2; i++)
+		boolean empty1 = true; // player 1's row
+		boolean empty2 = true; // player 2's row
+
+		for (int i = 1; i < board.length / 2; i++) // checks player 1's row for any non zeros
 		{
 			if(board[i] != 0)
 			{
@@ -271,7 +282,7 @@ public class Mancala
 			}
 		}
 
-		for (int i = (board.length / 2) + 1 ; i < board.length; i++)
+		for (int i = (board.length / 2) + 1 ; i < board.length; i++) // checks player 2's row for any non zeros
 		{
 			if(board[i] != 0)
 			{
